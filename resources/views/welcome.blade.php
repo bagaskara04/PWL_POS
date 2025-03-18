@@ -398,10 +398,41 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <div class="card card-warning">
+                <div class="card-header">
+                  <h3 class="card-title">General Elements</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <!-- text input -->
+                        <div class="form-group">
+                          <label>Level Id</label>
+                          <input type="text" class="form-control" placeholder="Id">
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-info">Submit</button>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.card-body -->
+              </div>
               <li class="nav-item">
-                <a href="pages/forms/general.html" class="nav-link">
+                <a href="{{ route('level.create') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>General Elements</p>
+                  <p>Form level</p>
+                </a>
+                <a href="{{ route('user.create') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Form User</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="pages/forms/advanced.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Advanced Elements</p>
                 </a>
               </li>
               <li class="nav-item">

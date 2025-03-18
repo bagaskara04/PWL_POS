@@ -15,5 +15,6 @@ class LevelModel extends Model
      * The attributes that are mass assignable
      * @var array
      */
-    protected $fillable = ['level_name'];
+    protected $fillable = ['level_kode','level_name'];
+    public $timestamps = true;
 }

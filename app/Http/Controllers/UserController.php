@@ -60,6 +60,21 @@ class UserController extends Controller
         return view('user', ['data' => $user]);
     }
 
+    public function create()
+    {
+        return view('user.form');
+    }
+    public function store(Request $request)
+    {
+        UserModel::create([
+            'level_id' => $request->level_id,
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->back()->with('success', 'User berhasil ditambahkan');
+    }
+
     public function tambah()
     {
         return view('user_tambah');

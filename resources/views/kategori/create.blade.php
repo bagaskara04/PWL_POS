@@ -13,14 +13,21 @@
 
             <form action="../kategori" method="post">
                 <div class="card-body">
+                    {{-- Kode Kategori --}}
                     <div class="form-group">
-                        <label for="kodeKategori">Kode Kategori</label>
-                        <input type="text" class="form-control" id="kodeKategori" name="kodeKategori"
-                            placeholder="Kode Kategori">
+                        <label for="kategori_kode">Kode Kategori</label>
+                        <input type="text" class="form-control @error('kategori_kode') is-invalid @enderror"
+                            id="kategori_kode" name="kategori_kode" placeholder="Kode Kategori"> {{-- Menyimpan input sebelumnya --}}
+
+                        @error('kategori_kode')
+                            <div class="alert alert-danger">{{ $message }}</div> {{-- Typo diperbaiki --}}
+                        @enderror
                     </div>
+
+                    {{-- Nama Kategori --}}
                     <div class="form-group">
-                        <label for="namaKategori">Nama Kategori</label>
-                        <input type="text" class="form-control" id="namaKategori" name="namaKategori"
+                        <label for="kategori_nama">Nama Kategori</label>
+                        <input type="text" class="form-control" id="kategori_nama" name="kategori_nama"
                             placeholder="Nama Kategori">
                     </div>
                 </div>
@@ -31,4 +38,14 @@
             </form>
         </div>
     </div>
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 @endsection
