@@ -3,6 +3,7 @@
 use App\Http\Controllers\KategoriController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\POSController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -46,4 +47,11 @@ Route::post('/level/store', [LevelController::class, 'store'])->name('level.stor
 Route::get('/user', [UserController::class, 'create'])->name('user.create');
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 
-
+Route::resource('m_user', POSController::class);
+// Route::get('/m_user', [POSController::class, 'index'])->name('m_user.index');
+// Route::get('/m_user/create', [POSController::class, 'create'])->name('m_user.create');
+// Route::post('/m_user/store', [POSController::class, 'store'])->name('m_user.store');
+// Route::get('/m_user/{id}', [POSController::class, 'show'])->name('m_user.show');
+// Route::get('/m_user/{id}/edit', [POSController::class, 'edit'])->name('m_user.edit');
+// Route::put('/m_user/{id}', [POSController::class, 'update'])->name('m_user.update');
+// Route::delete('/m_user/{id}', [POSController::class, 'destroy'])->name('m_user.destroy');
