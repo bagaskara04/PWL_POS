@@ -1,67 +1,68 @@
 @extends('m_user/template')
+
 @section('content')
-    <div class="row mt-5 mb-5">
-        <div class="col-lg-12 margin-tb">
-            <div class="float-left">
-                <h2>Show User</h2>
-            </div>
-            <div class="float-right">
-                <a class="btn btn-secondary" href="{{ route('m_user.index') }}"> Kembali</a>
-            </div>
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-lg-6">
+            <h2 class="text-primary">Edit Pengguna</h2>
+        </div>
+        <div class="col-lg-6 text-end">
+            <a class="btn btn-secondary" href="{{ route('m_user.index') }}">⬅ Kembali</a>
         </div>
     </div>
+
+    <!-- Notifikasi Error -->
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Ops!</strong>Error<br><br>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Oops!</strong> Terjadi kesalahan:<br>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
                 @endforeach
             </ul>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
     @endif
-    <form action="{{ route('m_user.update', $useri->user_id) }}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>User id:</strong>
-                    <input type="text" name="userid" value="{{ $useri->user_id }}" class="form-control"
-                        placeholder="Masukkan User Id">
+
+    <!-- Form Edit -->
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form action="{{ route('m_user.update', $useri->user_id) }}" method="post">
+                @csrf
+                @method('PUT')
+                
+                <div class="mb-3">
+                    <label class="form-label"><strong>User ID</strong></label>
+                    <input type="text" name="user_id" value="{{ $useri->user_id }}" class="form-control" readonly>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Level id:</strong>
-                    <input type="text" name="levelid" value="{{ $useri->level_id }}" class="form-control"
-                        placeholder="Masukkan Nomor username">
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Level ID</strong></label>
+                    <input type="text" name="level_id" value="{{ $useri->level_id }}" class="form-control" placeholder="Masukkan Level ID">
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Username:</strong>
-                    <input type="text" name="username" value="{{ $useri->username }}" class="form-control"
-                        placeholder="Masukkan Nomor username">
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Username</strong></label>
+                    <input type="text" name="username" value="{{ $useri->username }}" class="form-control" placeholder="Masukkan Username">
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Nama:</strong>
-                    <input type="text" name="nama" value="{{ $useri->nama }}" class="form-control"
-                        placeholder="Masukkan nama">
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Nama</strong></label>
+                    <input type="text" name="nama" value="{{ $useri->nama }}" class="form-control" placeholder="Masukkan Nama Lengkap">
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
+
+                <div class="mb-3">
                     <strong>Password:</strong>
                     <input type="password" name="password" value="{{ $useri->password }}" class="form-control"
                         placeholder="Masukkan password">
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Update</button>
-            </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Simpan Perubahan</button>
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
+</div>
 @endsection
