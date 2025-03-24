@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\POSController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WelcomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +56,4 @@ Route::resource('m_user', POSController::class);
 // Route::get('/m_user/{id}/edit', [POSController::class, 'edit'])->name('m_user.edit');
 // Route::put('/m_user/{id}', [POSController::class, 'update'])->name('m_user.update');
 // Route::delete('/m_user/{id}', [POSController::class, 'destroy'])->name('m_user.destroy');
+Route::get('/', [WelcomController::class, 'index']);
