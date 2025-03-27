@@ -1,50 +1,75 @@
-@extends('layouts.app')
-
-@section('subtitle', 'Kategori')
-@section('content_header_title', 'Home')
-@section('content_header_subtitle', 'Kategori')
+@extends('layouts.template')
 
 @section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3 class="card-title mb-0">Manage Kategori</h3>
-                <a href="{{ url('/kategori/create') }}" class="btn btn-success" style="margin-left: auto">+ Add</a>
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ $page->title }}</h3>
+            <div class="card-tools">
+                <a class="btn btn-sm btn-primary mt-1" href="{{ url('kategori/create') }}">Tambah</a>
             </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    {{ $dataTable->table() }}
-                </div>
-            </div>
+        </div>
+        <div class="card-body">
+            @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+            @if (session('error'))
+                <div class="alert alert-danger">{{ session('error') }}</div>
+            @endif
+            <table class="table table-bordered table-striped table-hover table-sm" id="table_kategori">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Kode Kategori</th>
+                        <th>Nama Kategori</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+            </table>
         </div>
     </div>
 @endsection
+@push('css')
+@endpush
 
-@push('scripts')
-    {{ $dataTable->scripts() }}
-
+@push('js')
     <script>
-        $(document).on('click', '.delete-btn', function() {
-            var kategoriId = $(this).data('id');
-
-            if (confirm('Apakah Anda yakin ingin menghapus kategori ini?')) {
-                $.ajax({
-                    url: "{{ url('/kategori') }}/" + kategoriId,
-                    type: 'POST', 
-                    data: {
-                        _token: "{{ csrf_token() }}",
-                        _method: "DELETE"
-                    },
-                    success: function(response) {
-                        alert(response.success);
-                        location.reload();
-                    },
-                    error: function(xhr) {
-                        alert('Terjadi kesalahan saat menghapus data.');
-                    }
-                });
-
-            }
+        $(document).ready(function() {
+            var dataUser = $('#table_kategori').DataTable({
+                // serverSide: true, jika ingin menggunakan server side processing 
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('kategori/list') }}",
+                    "dataType": "json",
+                    "type": "POST",
+                    // "data": function(d) {
+                    //     d.level_id = $('#level_id').val();
+                    // }
+                },
+                columns: [{
+                    // nomor urut dari laravel datatable addIndexColumn() 
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "kategori_kode",
+                    className: "",
+                    // orderable: true, jika ingin kolom ini bisa diurutkan 
+                    orderable: true,
+                    // searchable: true, jika ingin kolom ini bisa dicari 
+                    searchable: true
+                }, {
+                    data: "kategori_nama",
+                    className: "",
+                    orderable: true,
+                    searchable: true
+                }, {
+                    data: "aksi",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }]
+            });
         });
     </script>
 @endpush

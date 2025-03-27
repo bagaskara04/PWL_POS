@@ -24,13 +24,13 @@ Route::get('/', function () {
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/kategori', [KategoriController::class, 'index']);
+// Route::get('/kategori', [KategoriController::class, 'index']);
 
-Route::get('/kategori/create', [KategoriController::class, 'create']);
-Route::post('/kategori', [KategoriController::class, 'store']);
-Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
-Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
-Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
+// Route::get('/kategori/create', [KategoriController::class, 'create']);
+// Route::post('/kategori', [KategoriController::class, 'store']);
+// Route::get('/kategori/{id}/edit', [KategoriController::class, 'edit'])->name('kategori.edit');
+// Route::put('/kategori/{id}', [KategoriController::class, 'update'])->name('kategori.update');
+// Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 
 
 Route::get('/level', [LevelController::class, 'create'])->name('level.create');
@@ -58,4 +58,15 @@ Route::group(['prefix'=> 'user'], function(){
     Route::get('/{id}/edit', [UserController::class, 'edit']);
     Route::put('/{id}', [UserController::class, 'update']);
     Route::delete('/{id}', [UserController::class, 'destroy']);
+});
+
+Route::group(['prefix'=> 'kategori'], function(){
+    Route::get('/', [KategoriController::class, 'index']);
+    Route::post('/list', [KategoriController::class, 'list']);
+    Route::get('/create', [KategoriController::class, 'create']);
+    Route::post('/', [KategoriController::class, 'store']);
+    Route::get('/{id}', [KategoriController::class, 'show']);
+    Route::get('/{id}/edit', [KategoriController::class, 'edit']);
+    Route::put('/{id}', [KategoriController::class, 'update']);
+    Route::delete('/{id}', [KategoriController::class, 'destroy']);
 });
