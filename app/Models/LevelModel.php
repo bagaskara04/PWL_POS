@@ -15,12 +15,6 @@ class LevelModel extends Model
      * The attributes that are mass assignable
      * @var array
      */
-    // protected $fillable = ['level_kode','level_name'];
-    protected $fillable = ['id', 'nama_level'];
+    protected $fillable = ['level_kode','level_nama'];
 
-    public function users()
-    {
-        return $this->hasMany(m_user::class, 'level_id');
-    }
-    public $timestamps = true;
 }
