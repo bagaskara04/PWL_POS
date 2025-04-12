@@ -10,4 +10,5 @@
             Selamat datang semua, Ini adalah halaman utama dari aplikasi ini
         </div>
     </div>
+    
 @endsection
