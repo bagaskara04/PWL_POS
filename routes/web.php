@@ -42,6 +42,10 @@ Route::pattern('id', '[0-9]+');
 Route::get('login',[AuthController::class, 'login'])->name('login');
 Route::post('login',[AuthController::class, 'postlogin']);
 Route::get('logout',[AuthController::class, 'logout'])->middleware('auth');
+
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('register', [AuthController::class, 'store_user']);
+
 Route::middleware(['auth'])->group(function(){
     //Js 5 
 //Praktikum 2
@@ -65,7 +69,7 @@ Route::group(['prefix'=>'user'], function(){
     Route::delete('/{id}',[UserController::class,'destroy']);// menghapus data user 
 });
 
-Route::middleware(['authorize:ADM'])->prefix('level')->group(function () {
+Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {
     Route::get('/',[LevelController::class,'index']);//menampilkan halaman awal
     Route::post('/list',[LevelController::class,'list']);//menampilkan data user bentuk json / datatables
     Route::get('/create',[LevelController::class,'create']);// meanmpilkan bentuk form untuk tambah user
