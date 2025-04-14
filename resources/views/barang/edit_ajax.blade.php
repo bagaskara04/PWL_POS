@@ -19,6 +19,7 @@
     <form action="{{ url('/barang/' . $barang->barang_id . '/update_ajax') }}" method="POST" id="form-edit">
         @csrf
         @method('PUT')
+        <input type="hidden" name="barang_id" value="{{ $barang->barang_id }}">
         <div id="myModal" class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
