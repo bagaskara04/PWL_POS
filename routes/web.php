@@ -84,6 +84,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/delete_ajax', [LevelController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [LevelController::class, 'delete_ajax']);
         Route::delete('/{id}', [LevelController::class, 'destroy']);
+        Route::get('/import', [LevelController::class, 'import']); //ajax
+        Route::post('/import_ajax', [LevelController::class, 'import_ajax']); //ajax
+        Route::get('/export_excel', [LevelController::class, 'export_excel']); //ajax
+        Route::get('/export_pdf', [LevelController::class, 'export_pdf']); //ajax
     });
 
     Route::middleware(['authorize:ADM,MNG'])->prefix('kategori')->group(function () {
@@ -122,5 +126,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/import', [BarangController::class, 'import']); //ajax
         Route::post('/import_ajax', [BarangController::class, 'import_ajax']); //ajax
         Route::get('/export_excel', [BarangController::class, 'export_excel']); //ajax
+        Route::get('/export_pdf', [BarangController::class, 'export_pdf']); //ajax
     });
 });
