@@ -435,7 +435,7 @@ class UserController extends Controller
     {
         // Validasi file
         $request->validate([
-            'photo_profile' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         try {
@@ -454,15 +454,15 @@ class UserController extends Controller
             }
 
             // Menghapus foto jika sudah ada
-            if ($userModel->photo_profile && file_exists(storage_path('app/public/' . $userModel->photo_profile))) {
-                Storage::disk('public')->delete($userModel->photo_profile);
+            if ($userModel->photo && file_exists(storage_path('app/public/' . $userModel->photo))) {
+                Storage::disk('public')->delete($userModel->photo);
             }
 
-            $fileName = 'profile_' . $userId . '_' . time() . '.' . $request->photo_profile->extension();
-            $path = $request->photo_profile->storeAs('profiles', $fileName, 'public');
+            $fileName = 'profile_' . $userId . '_' . time() . '.' . $request->photo->extension();
+            $path = $request->photo->storeAs('profiles', $fileName, 'public');
 
             UserModel::where('user_id', $userId)->update([
-                'photo_profile' => $path
+                'photo' => $path
             ]);
 
             return redirect()->back()->with('success', 'Foto profile berhasil diperbarui');
@@ -482,21 +482,22 @@ class UserController extends Controller
 
             $userModel = UserModel::find($user->user_id);
 
-            if (!$userModel || !$userModel->photo_profile) {
+            if (!$userModel || !$userModel->photo) {
                 return redirect()->back()->with('error', 'Tidak ada foto yang dapat dihapus');
             }
 
-            if (Storage::disk('public')->exists($userModel->photo_profile)) {
-                Storage::disk('public')->delete($userModel->photo_profile);
+            if (Storage::disk('public')->exists($userModel->photo)) {
+                Storage::disk('public')->delete($userModel->photo);
             }
 
-            $userModel->update(['photo_profile' => null]);
+            $userModel->update(['photo' => null]);
 
             return redirect()->back()->with('success', 'Foto profil berhasil dihapus');
         } catch (\Exception $e) {
             return redirect()->back()->with('error', 'Gagal menghapus foto: ' . $e->getMessage());
         }
     }
+
     // public function index(){
 
     //     $user = UserModel::with('level')->get();
