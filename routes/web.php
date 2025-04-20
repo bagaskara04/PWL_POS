@@ -67,10 +67,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{id}/delete_ajax', [UserController::class, 'confirm_ajax']);
         Route::delete('/{id}/delete_ajax', [UserController::class, 'delete_ajax']);
         Route::delete('/{id}', [UserController::class, 'destroy']);
-        Route::get('/import', [UserController::class, 'import']); //ajax
-        Route::post('/import_ajax', [UserController::class, 'import_ajax']); //ajax
-        Route::get('/export_excel', [UserController::class, 'export_excel']); //ajax
-        Route::get('/export_pdf', [UserController::class, 'export_pdf']); //ajax
+        Route::get('/import',[UserController::class,'import']); // ajax form upload excel
+        Route::post('/import_ajax',[UserController::class,'import_ajax']); // ajax form import excel 
+        Route::get('/export_excel',[UserController::class,'export_excel']); // export excel
+        Route::get('/export_pdf',[UserController::class, 'export_pdf']);// export pdf
     });
 
     Route::middleware(['authorize:ADM,MNG'])->prefix('level')->group(function () {

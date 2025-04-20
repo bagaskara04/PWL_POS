@@ -5,9 +5,13 @@
         <div class="card-header">
             <h3 class="card-title">{{ $page->title }}</h3>
             <div class="card-tools">
-                <a class="btn btn-sm btn-primary mt-1" href="{{ url('kategori/create') }}">Tambah</a>
-                <button onclick="modalAction('{{ url('kategori/create_ajax') }}')" class="btn btn-sm btn-success mt-1">Tambah
-                    Ajax</button>
+                <button onclick="modalAction('{{ url('/kategori/import') }}')" class="btn btn-info">Import Kategori</button>
+                <a href="{{ url('/kategori/export_excel') }}" class="btn btn-primary"><i class="fa fa-file-excel"></i> Export
+                    Kategori Excel</a>
+                <a href="{{ url('/kategori/export_pdf') }}" class="btn btn-warning"><i class="fa fa-file-pdf"></i>Export
+                    Kategori PDF</a>
+                <button onclick="modalAction('{{ url('/kategori/create_ajax') }}')" class="btn btn-success">Tambah Data
+                    (Ajax)</button>
             </div>
         </div>
         <div class="card-body">
@@ -38,49 +42,47 @@
 @push('js')
     <script>
         function modalAction(url = '') {
-            console.log("Loading modal from:", url); // Debugging
             $('#myModal').load(url, function() {
                 $('#myModal').modal('show');
             });
         }
-
-        var dataKategori;
         $(document).ready(function() {
-            dataKategori = $('#table_kategori').DataTable({
-                // serverSide: true, jika ingin menggunakan server side processing 
-                serverSide: true,
+            var dataUser = $('#table_kategori').DataTable({
+                processing: true,
+                serverSide: true, // Jika ingin menggunakan server-side processing
                 ajax: {
                     "url": "{{ url('kategori/list') }}",
                     "dataType": "json",
                     "type": "POST",
-                    // "data": function(d) {
-                    //     d.level_id = $('#level_id').val();
-                    // }
+                    "data": function(d) {
+                        d.kategori_id = $('#kategori_id').val();
+                    }
                 },
                 columns: [{
-                    // nomor urut dari laravel datatable addIndexColumn() 
-                    data: "DT_RowIndex",
-                    className: "text-center",
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: "kategori_kode",
-                    className: "",
-                    // orderable: true, jika ingin kolom ini bisa diurutkan 
-                    orderable: true,
-                    // searchable: true, jika ingin kolom ini bisa dicari 
-                    searchable: true
-                }, {
-                    data: "kategori_nama",
-                    className: "",
-                    orderable: true,
-                    searchable: true
-                }, {
-                    data: "aksi",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }]
+                        data: "DT_RowIndex",
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false
+                    }, // Kolom nomor urut
+                    {
+                        data: "kategori_kode",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "kategori_nama",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        data: "aksi",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    } // Tombol aksi
+                ]
             });
         });
     </script>
