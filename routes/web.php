@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WelcomController;
 use Illuminate\Support\Facades\Route;
@@ -140,3 +141,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export_pdf', [BarangController::class, 'export_pdf']); //ajax
     });
 });
+
+Route::get('/reservasi', [ReservationController::class, 'index']);
+// Route::get('/barang', [BarangController::class, 'index']);
+
