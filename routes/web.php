@@ -141,7 +141,3 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/export_pdf', [BarangController::class, 'export_pdf']); //ajax
     });
 });
-
-Route::get('/reservasi', [ReservationController::class, 'index']);
-// Route::get('/barang', [BarangController::class, 'index']);
-
